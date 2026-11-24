@@ -1,0 +1,1135 @@
+In [1]: import numpy as n
+
+In [2]: import pandas as z
+
+In [3]: import matplotlib.pyplot as m
+
+In [4]: df=z.read_csv("G:\\job_salary_prediction_dataset.csv")
+
+In [5]: df.head()
+Out[5]:
+            job_title  experience_years education_level  skills_count  ...   location remote_work certifications  salary
+0         AI Engineer                10        Bachelor             2  ...      India      Hybrid              2  109413
+1        Data Analyst                 5        Bachelor            17  ...  Australia          No              0   93764
+2  Frontend Developer                18             PhD             4  ...  Singapore          No              1  148123
+3    Business Analyst                19             PhD            13  ...     Canada         Yes              0  189123
+4     Product Manager                15        Bachelor             7  ...     Sweden         Yes              0  165069
+
+[5 rows x 10 columns]
+
+In [6]: df.columns
+Out[6]:
+Index(['job_title', 'experience_years', 'education_level', 'skills_count',
+       'industry', 'company_size', 'location', 'remote_work', 'certifications',
+       'salary'],
+      dtype='object')
+
+In [7]: df.shape
+Out[7]: (250000, 10)
+
+In [8]: sum(df['job_title'].isnull())
+Out[8]: 0
+
+In [9]: sum(df['experience_years'].isnull())
+Out[9]: 0
+
+In [10]: sum(df['education_level'].isnull())
+Out[10]: 0
+
+In [11]: sum(df['skills_count'].isnull())
+Out[11]: 0
+
+In [12]: sum(df['industry'].isnull())
+Out[12]: 0
+
+In [13]: sum(df['company_size'].isnull())
+Out[13]: 0
+
+In [14]: sum(df['location'].isnull())
+Out[14]: 0
+
+In [15]: sum(df['remote_work'].isnull())
+Out[15]: 0
+
+In [16]: sum(df['certifications'].isnull())
+Out[16]: 0
+
+In [17]: sum(df['salary'].isnull())
+Out[17]: 0
+
+In [18]: df['job_title'].value_counts()
+Out[18]:
+Backend Developer            21125
+Cybersecurity Analyst        20959
+Product Manager              20950
+AI Engineer                  20945
+Data Scientist               20890
+DevOps Engineer              20889
+Software Engineer            20876
+Data Analyst                 20722
+Cloud Engineer               20686
+Machine Learning Engineer    20677
+Business Analyst             20648
+Frontend Developer           20633
+Name: job_title, dtype: int64
+
+In [19]: df['experience_years'].value_counts()
+Out[19]:
+14    12166
+18    12102
+15    12052
+1     12011
+4     12001
+7     11981
+20    11958
+2     11950
+12    11944
+16    11908
+3     11890
+19    11875
+5     11862
+6     11860
+9     11856
+8     11822
+0     11804
+10    11777
+11    11747
+17    11735
+13    11699
+Name: experience_years, dtype: int64
+
+In [20]: df['education_level'].value_counts()
+Out[20]:
+Master         50352
+High School    50065
+Bachelor       49950
+PhD            49857
+Diploma        49776
+Name: education_level, dtype: int64
+
+In [21]: df['skills_count'].value_counts()
+Out[21]:
+14    13298
+9     13267
+8     13266
+1     13250
+3     13248
+17    13214
+16    13213
+5     13196
+6     13184
+10    13181
+18    13152
+19    13136
+13    13101
+2     13092
+15    13064
+7     13052
+4     13040
+11    13037
+12    13009
+Name: skills_count, dtype: int64
+
+In [22]: df['industry'].value_counts()
+Out[22]:
+Finance          25393
+Consulting       25258
+Media            25034
+Manufacturing    25024
+Technology       24903
+Government       24901
+Healthcare       24898
+Education        24889
+Telecom          24859
+Retail           24841
+Name: industry, dtype: int64
+
+In [23]: df['company_size'].value_counts()
+Out[23]:
+Large         50254
+Small         50235
+Medium        50027
+Enterprise    49875
+Startup       49609
+Name: company_size, dtype: int64
+
+In [24]: df['location'].value_counts()
+Out[24]:
+Australia      25258
+Canada         25165
+Sweden         25100
+Remote         25065
+Singapore      25035
+USA            24931
+UK             24927
+India          24895
+Netherlands    24861
+Germany        24763
+Name: location, dtype: int64
+
+In [25]: df['remote_work'].value_counts()
+Out[25]:
+No        83621
+Hybrid    83476
+Yes       82903
+Name: remote_work, dtype: int64
+
+In [26]: df['certifications'].value_counts()
+Out[26]:
+0    42015
+3    41974
+2    41744
+1    41574
+4    41467
+5    41226
+Name: certifications, dtype: int64
+
+In [27]: df['salary'].value_counts()
+Out[27]:
+140468    13
+156899    11
+131287    11
+126339    10
+142504    10
+          ..
+221007     1
+91084      1
+164778     1
+74831      1
+75988      1
+Name: salary, Length: 118956, dtype: int64
+
+In [28]: max(df['experience_years'])
+Out[28]: 20
+
+In [29]: min(df['experience_years'])
+Out[29]: 0
+
+In [30]: max(df['skills_count'])
+Out[30]: 19
+
+In [31]: min(df['skills_count'])
+Out[31]: 1
+
+In [32]: max(df['certifications'])
+Out[32]: 5
+
+In [33]: min(df['certifications'])
+Out[33]: 0
+
+In [34]: max(df['salary'])
+Out[34]: 333046
+
+In [35]: min(df['salary'])
+Out[35]: 31867
+
+In [36]: from statistics import mode
+
+In [37]: from statistics import correlation
+
+In [38]: mode(df['job_title'])
+Out[38]: 'Backend Developer'
+
+In [39]: mode(df['experience_years'])
+Out[39]: 14
+
+In [40]: mode(df['education_level'])
+Out[40]: 'Master'
+
+In [41]: mode(df['skills_count'])
+Out[41]: 14
+
+In [42]: mode(df['industry'])
+Out[42]: 'Finance'
+
+In [43]: mode(df['company_size'])
+Out[43]: 'Large'
+
+In [44]: mode(df['location'])
+Out[44]: 'Australia'
+
+In [45]: mode(df['remote_work'])
+Out[45]: 'No'
+
+In [46]: mode(df['certifications'])
+Out[46]: 0
+
+In [47]: correlation(df['experience_years'],df['skills_count'])
+Out[47]: 0.00014887629886030856
+
+In [48]: correlation(df['experience_years'],df['certifications'])
+Out[48]: -0.00019805661209766287
+
+In [49]: correlation(df['experience_years'],df['salary'])
+Out[49]: 0.4376271392904726
+
+In [50]: correlation(df['skills_count'],df['certifications'])
+Out[50]: -0.002229640748483591
+
+In [51]: correlation(df['skills_count'],df['salary'])
+Out[51]: 0.12729970793138612
+
+In [52]: correlation(df['certifications'],df['salary'])
+Out[52]: 0.07381898328393377
+
+In [53]: m.scatter(df['experience_years'],df['skills_count'])
+Out[53]: <matplotlib.collections.PathCollection at 0x292647c46d0>
+
+In [54]: m.show()
+
+In [55]: m.scatter(df['experience_years'],df['certifications'])
+Out[55]: <matplotlib.collections.PathCollection at 0x29265b83b80>
+
+In [56]: m.show()
+
+In [57]: m.scatter(df['experience_years'],df['salary'])
+Out[57]: <matplotlib.collections.PathCollection at 0x29264bf4be0>
+
+In [58]: m.show()
+
+In [59]: m.scatter(df['skills_count'],df['certifications'])
+Out[59]: <matplotlib.collections.PathCollection at 0x29268deb4f0>
+
+In [60]: m.show()
+
+In [61]: m.scatter(df['skills_count'],df['salary'])
+Out[61]: <matplotlib.collections.PathCollection at 0x29268e3abf0>
+
+In [62]: m.show()
+
+In [63]: m.scatter(df['certifications'],df['salary'])
+Out[63]: <matplotlib.collections.PathCollection at 0x29269ab81f0>
+
+In [64]: m.show()
+
+In [65]: m.hist(df['job_title'])
+Out[65]:
+(array([41667., 20633., 20648., 20950., 21125., 20677., 20889., 20876.,
+        20959., 41576.]),
+ array([ 0. ,  1.1,  2.2,  3.3,  4.4,  5.5,  6.6,  7.7,  8.8,  9.9, 11. ]),
+ <BarContainer object of 10 artists>)
+
+In [66]: m.show()
+
+In [67]: m.hist(df['experience_years'])
+Out[67]:
+(array([23815., 23840., 23863., 23841., 23678., 23524., 23643., 24218.,
+        23643., 35935.]),
+ array([ 0.,  2.,  4.,  6.,  8., 10., 12., 14., 16., 18., 20.]),
+ <BarContainer object of 10 artists>)
+
+In [68]: m.show()
+
+In [69]: m.hist(df['education_level'])
+Out[69]:
+(array([49950.,     0., 49857.,     0.,     0., 50065.,     0., 49776.,
+            0., 50352.]),
+ array([0. , 0.4, 0.8, 1.2, 1.6, 2. , 2.4, 2.8, 3.2, 3.6, 4. ]),
+ <BarContainer object of 10 artists>)
+
+In [70]: m.show()
+
+In [71]: m.hist(df['skills_count'])
+Out[71]:
+(array([26342., 26288., 26380., 26318., 13267., 26218., 26110., 26362.,
+        26427., 26288.]),
+ array([ 1. ,  2.8,  4.6,  6.4,  8.2, 10. , 11.8, 13.6, 15.4, 17.2, 19. ]),
+ <BarContainer object of 10 artists>)
+
+In [72]: m.show()
+
+In [73]: m.hist(df['industry'])
+Out[73]:
+(array([24898., 24859., 25034., 24841., 25024., 24889., 25393., 24903.,
+        25258., 24901.]),
+ array([0. , 0.9, 1.8, 2.7, 3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9. ]),
+ <BarContainer object of 10 artists>)
+
+In [74]: m.show()
+
+In [75]: m.hist(df['company_size'])
+Out[75]:
+(array([50027.,     0., 50235.,     0.,     0., 50254.,     0., 49875.,
+            0., 49609.]),
+ array([0. , 0.4, 0.8, 1.2, 1.6, 2. , 2.4, 2.8, 3.2, 3.6, 4. ]),
+ <BarContainer object of 10 artists>)
+
+In [76]: m.show()
+
+In [77]: m.hist(df['location'])
+Out[77]:
+(array([24895., 25258., 25035., 25165., 25100., 24931., 24861., 25065.,
+        24763., 24927.]),
+ array([0. , 0.9, 1.8, 2.7, 3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9. ]),
+ <BarContainer object of 10 artists>)
+
+In [78]: m.show()
+
+In [79]: m.hist(df['remote_work'])
+Out[79]:
+(array([83476.,     0.,     0.,     0.,     0., 83621.,     0.,     0.,
+            0., 82903.]),
+ array([0. , 0.2, 0.4, 0.6, 0.8, 1. , 1.2, 1.4, 1.6, 1.8, 2. ]),
+ <BarContainer object of 10 artists>)
+
+In [80]: m.show()
+
+In [81]: m.hist(df['certifications'])
+Out[81]:
+(array([42015.,     0., 41574.,     0., 41744.,     0., 41974.,     0.,
+        41467., 41226.]),
+ array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5, 5. ]),
+ <BarContainer object of 10 artists>)
+
+In [82]: m.show()
+
+In [83]: m.hist(df['salary'])
+Out[83]:
+(array([8.6700e+02, 1.5616e+04, 5.2933e+04, 7.8908e+04, 6.1308e+04,
+        2.8708e+04, 9.0910e+03, 2.1650e+03, 3.6700e+02, 3.7000e+01]),
+ array([ 31867. ,  61984.9,  92102.8, 122220.7, 152338.6, 182456.5,
+        212574.4, 242692.3, 272810.2, 302928.1, 333046. ]),
+ <BarContainer object of 10 artists>)
+
+In [84]: m.show()
+
+In [85]: m.boxplot(df['experience_years'])
+Out[85]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x2926dad5fc0>,
+  <matplotlib.lines.Line2D at 0x2926dad6260>],
+ 'caps': [<matplotlib.lines.Line2D at 0x2926dad6500>,
+  <matplotlib.lines.Line2D at 0x2926dad67a0>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x2926dad5d20>],
+ 'medians': [<matplotlib.lines.Line2D at 0x2926dad6a40>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x2926dad6ce0>],
+ 'means': []}
+
+In [86]: m.show()
+
+In [87]: m.boxplot(df['skills_count'])
+Out[87]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x2926db4bf70>,
+  <matplotlib.lines.Line2D at 0x2926db74250>],
+ 'caps': [<matplotlib.lines.Line2D at 0x2926db744f0>,
+  <matplotlib.lines.Line2D at 0x2926db74670>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x2926db4bcd0>],
+ 'medians': [<matplotlib.lines.Line2D at 0x2926db74910>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x2926db74bb0>],
+ 'means': []}
+
+In [88]: m.show()
+
+In [89]: m.boxplot(df['certifications'])
+Out[89]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x2926f549720>,
+  <matplotlib.lines.Line2D at 0x2926f5499c0>],
+ 'caps': [<matplotlib.lines.Line2D at 0x2926f549c60>,
+  <matplotlib.lines.Line2D at 0x2926f549f00>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x2926f549480>],
+ 'medians': [<matplotlib.lines.Line2D at 0x2926f54a1a0>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x2926f54a440>],
+ 'means': []}
+
+In [90]: m.show()
+
+In [91]: m.boxplot(df['salary'])
+Out[91]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x2926f5c4640>,
+  <matplotlib.lines.Line2D at 0x2926f5c48e0>],
+ 'caps': [<matplotlib.lines.Line2D at 0x2926f5c4b80>,
+  <matplotlib.lines.Line2D at 0x2926f5c4e20>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x2926f5c43a0>],
+ 'medians': [<matplotlib.lines.Line2D at 0x2926f5c50c0>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x2926f5c5360>],
+ 'means': []}
+
+In [92]: m.show()
+
+In [93]: n.quantile(df['experience_years'],0.25)
+Out[93]: 5.0
+
+In [94]: n.quantile(df['experience_years'],0.5)
+Out[94]: 10.0
+
+In [95]: n.quantile(df['experience_years'],0.75)
+Out[95]: 15.0
+
+In [96]: n.quantile(df['skills_count'],0.25)
+Out[96]: 5.0
+
+In [97]: n.quantile(df['skills_count'],0.5)
+Out[97]: 10.0
+
+In [98]: n.quantile(df['skills_count'],0.75)
+Out[98]: 15.0
+
+In [99]: n.quantile(df['certifications'],0.25)
+Out[99]: 1.0
+
+In [100]: n.quantile(df['certifications'],0.5)
+Out[100]: 2.0
+
+In [101]: n.quantile(df['certifications'],0.75)
+Out[101]: 4.0
+
+In [102]: n.quantile(df['salary'],0.25)
+Out[102]: 119358.0
+
+In [103]: n.quantile(df['salary'],0.5)
+Out[103]: 143453.0
+
+In [104]: n.quantile(df['salary'],0.75)
+Out[104]: 169492.0
+
+In [105]: df['job_title'][df['skills_count']==19]
+Out[105]:
+27        Cybersecurity Analyst
+29              DevOps Engineer
+80        Cybersecurity Analyst
+108          Frontend Developer
+158                 AI Engineer
+                  ...
+249897          Product Manager
+249909           Data Scientist
+249969        Software Engineer
+249984         Business Analyst
+249993       Frontend Developer
+Name: job_title, Length: 13136, dtype: object
+
+In [106]: df['job_title'][df['skills_count']==19].value_counts()
+Out[106]:
+DevOps Engineer              1125
+Software Engineer            1124
+Data Scientist               1111
+Business Analyst             1107
+Data Analyst                 1099
+Product Manager              1096
+Cybersecurity Analyst        1093
+Backend Developer            1085
+Frontend Developer           1083
+AI Engineer                  1083
+Machine Learning Engineer    1076
+Cloud Engineer               1054
+Name: job_title, dtype: int64
+
+In [107]: df['experience_years'][df['skills_count']==19]
+Out[107]:
+27         9
+29         4
+80         0
+108        6
+158       18
+          ..
+249897     9
+249909    13
+249969     3
+249984    19
+249993    17
+Name: experience_years, Length: 13136, dtype: int64
+
+In [108]: df['experience_years'][df['skills_count']==19].value_counts()
+Out[108]:
+9     661
+2     660
+15    652
+20    645
+14    644
+6     638
+4     637
+19    636
+7     626
+18    625
+17    625
+11    624
+16    622
+8     621
+10    617
+12    616
+5     616
+1     606
+0     597
+13    585
+3     583
+Name: experience_years, dtype: int64
+
+In [109]: df['education_level'][df['skills_count']==19]
+Out[109]:
+27                PhD
+29            Diploma
+80            Diploma
+108           Diploma
+158       High School
+             ...
+249897        Diploma
+249909       Bachelor
+249969        Diploma
+249984         Master
+249993            PhD
+Name: education_level, Length: 13136, dtype: object
+
+In [110]: df['education_level'][df['skills_count']==19].value_counts()
+Out[110]:
+Bachelor       2701
+High School    2634
+Master         2620
+Diploma        2599
+PhD            2582
+Name: education_level, dtype: int64
+
+In [111]: df['industry'][df['skills_count']==19]
+Out[111]:
+27           Technology
+29           Technology
+80            Education
+108             Finance
+158             Finance
+              ...
+249897        Education
+249909          Finance
+249969    Manufacturing
+249984       Government
+249993          Telecom
+Name: industry, Length: 13136, dtype: object
+
+In [112]: df['industry'][df['skills_count']==19].value_counts()
+Out[112]:
+Education        1369
+Government       1361
+Finance          1321
+Healthcare       1319
+Media            1311
+Consulting       1308
+Manufacturing    1307
+Telecom          1289
+Retail           1282
+Technology       1269
+Name: industry, dtype: int64
+
+In [113]: df['company_size'][df['skills_count']==19]
+Out[113]:
+27            Medium
+29             Large
+80        Enterprise
+108          Startup
+158       Enterprise
+             ...
+249897    Enterprise
+249909       Startup
+249969       Startup
+249984         Small
+249993    Enterprise
+Name: company_size, Length: 13136, dtype: object
+
+In [114]: df['company_size'][df['skills_count']==19].value_counts()
+Out[114]:
+Startup       2715
+Large         2666
+Small         2600
+Medium        2589
+Enterprise    2566
+Name: company_size, dtype: int64
+
+In [115]: df['location'][df['skills_count']==19]
+Out[115]:
+27            Germany
+29          Australia
+80             Canada
+108                UK
+158             India
+             ...
+249897    Netherlands
+249909             UK
+249969            USA
+249984          India
+249993    Netherlands
+Name: location, Length: 13136, dtype: object
+
+In [116]: df['location'][df['skills_count']==19].value_counts()
+Out[116]:
+Remote         1374
+Australia      1369
+Singapore      1346
+USA            1343
+Sweden         1297
+Canada         1292
+UK             1285
+Germany        1279
+India          1278
+Netherlands    1273
+Name: location, dtype: int64
+
+In [117]: df['remote_work'][df['skills_count']==19]
+Out[117]:
+27            No
+29        Hybrid
+80           Yes
+108       Hybrid
+158           No
+           ...
+249897       Yes
+249909        No
+249969       Yes
+249984    Hybrid
+249993       Yes
+Name: remote_work, Length: 13136, dtype: object
+
+In [118]: df['remote_work'][df['skills_count']==19].value_counts()
+Out[118]:
+No        4418
+Hybrid    4389
+Yes       4329
+Name: remote_work, dtype: int64
+
+In [119]: df['certifications'][df['skills_count']==19]
+Out[119]:
+27        2
+29        2
+80        2
+108       1
+158       1
+         ..
+249897    2
+249909    1
+249969    4
+249984    1
+249993    1
+Name: certifications, Length: 13136, dtype: int64
+
+In [120]: df['certifications'][df['skills_count']==19].value_counts()
+Out[120]:
+3    2252
+1    2249
+0    2215
+2    2203
+4    2171
+5    2046
+Name: certifications, dtype: int64
+
+In [121]: df['salary'][df['skills_count']==19]
+Out[121]:
+27        168253
+29        141409
+80        163299
+108       104707
+158       146788
+           ...
+249897    179437
+249909    150405
+249969    133208
+249984     91647
+249993    193028
+Name: salary, Length: 13136, dtype: int64
+
+In [122]: df['salary'][df['skills_count']==19].value_counts()
+Out[122]:
+156899    4
+173224    4
+168558    3
+151843    3
+183542    3
+         ..
+131776    1
+186255    1
+147517    1
+149046    1
+193028    1
+Name: salary, Length: 12511, dtype: int64
+
+In [123]: max(df['experience_years'][df['skills_count']==19])
+Out[123]: 20
+
+In [124]: min(df['experience_years'][df['skills_count']==19])
+Out[124]: 0
+
+In [125]: max(df['certifications'][df['skills_count']==19])
+Out[125]: 5
+
+In [126]: min(df['certifications'][df['skills_count']==19])
+Out[126]: 0
+
+In [127]: max(df['salary'][df['skills_count']==19])
+Out[127]: 315928
+
+In [128]: min(df['salary'][df['skills_count']==19])
+Out[128]: 52590
+
+In [129]: mode(df['job_title'][df['skills_count']==19])
+Out[129]: 'DevOps Engineer'
+
+In [130]: mode(df['experience_years'][df['skills_count']==19])
+Out[130]: 9
+
+In [131]: mode(df['education_level'][df['skills_count']==19])
+Out[131]: 'Bachelor'
+
+In [132]: mode(df['industry'][df['skills_count']==19])
+Out[132]: 'Education'
+
+In [133]: mode(df['company_size'][df['skills_count']==19])
+Out[133]: 'Startup'
+
+In [134]: mode(df['location'][df['skills_count']==19])
+Out[134]: 'Remote'
+
+In [135]: mode(df['remote_work'][df['skills_count']==19])
+Out[135]: 'No'
+
+In [136]: mode(df['certifications'][df['skills_count']==19])
+Out[136]: 3
+
+In [137]: correlation(df['experience_years'][df['skills_count']==19],df['certifications'][df['skills_count']==19])
+Out[137]: -0.012016207690078728
+
+In [138]: correlation(df['experience_years'][df['skills_count']==19],df['salary'][df['skills_count']==19])
+Out[138]: 0.43499034145087956
+
+In [139]: correlation(df['certifications'][df['skills_count']==19],df['salary'][df['skills_count']==19])
+Out[139]: 0.06603885886439265
+
+In [140]: m.scatter(df['experience_years'][df['skills_count']==19],df['certifications'][df['skills_count']==19])
+Out[140]: <matplotlib.collections.PathCollection at 0x2926b895cc0>
+
+In [141]: m.show()
+
+In [142]: m.scatter(df['experience_years'][df['skills_count']==19],df['salary'][df['skills_count']==19])
+Out[142]: <matplotlib.collections.PathCollection at 0x2926f657ca0>
+
+In [143]: m.show()
+
+In [144]: m.scatter(df['certifications'][df['skills_count']==19],df['salary'][df['skills_count']==19])
+Out[144]: <matplotlib.collections.PathCollection at 0x292645adbd0>
+
+In [145]: m.show()
+
+In [146]: m.hist(df['job_title'][df['skills_count']==19])
+Out[146]:
+(array([2218., 1083., 1083., 1054., 1111., 1076., 1096., 1099., 1107.,
+        2209.]),
+ array([ 0. ,  1.1,  2.2,  3.3,  4.4,  5.5,  6.6,  7.7,  8.8,  9.9, 11. ]),
+ <BarContainer object of 10 artists>)
+
+In [147]: m.show()
+
+In [148]: m.hist(df['experience_years'][df['skills_count']==19])
+Out[148]:
+(array([1203., 1243., 1253., 1264., 1282., 1241., 1201., 1296., 1247.,
+        1906.]),
+ array([ 0.,  2.,  4.,  6.,  8., 10., 12., 14., 16., 18., 20.]),
+ <BarContainer object of 10 artists>)
+
+In [149]: m.show()
+
+In [150]: m.hist(df['education_level'][df['skills_count']==19])
+Out[150]:
+(array([2582.,    0., 2599.,    0.,    0., 2634.,    0., 2620.,    0.,
+        2701.]),
+ array([0. , 0.4, 0.8, 1.2, 1.6, 2. , 2.4, 2.8, 3.2, 3.6, 4. ]),
+ <BarContainer object of 10 artists>)
+
+In [151]: m.show()
+
+In [152]: m.hist(df['industry'][df['skills_count']==19])
+Out[152]:
+(array([1269., 1369., 1321., 1307., 1289., 1319., 1282., 1361., 1308.,
+        1311.]),
+ array([0. , 0.9, 1.8, 2.7, 3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9. ]),
+ <BarContainer object of 10 artists>)
+
+In [153]: m.show()
+
+In [154]: m.hist(df['company_size'][df['skills_count']==19])
+Out[154]:
+(array([2589.,    0., 2666.,    0.,    0., 2566.,    0., 2715.,    0.,
+        2600.]),
+ array([0. , 0.4, 0.8, 1.2, 1.6, 2. , 2.4, 2.8, 3.2, 3.6, 4. ]),
+ <BarContainer object of 10 artists>)
+
+In [155]: m.show()
+
+In [156]: m.hist(df['location'][df['skills_count']==19])
+Out[156]:
+(array([1279., 1369., 1292., 1285., 1278., 1273., 1297., 1343., 1374.,
+        1346.]),
+ array([0. , 0.9, 1.8, 2.7, 3.6, 4.5, 5.4, 6.3, 7.2, 8.1, 9. ]),
+ <BarContainer object of 10 artists>)
+
+In [157]: m.show()
+
+In [158]: m.hist(df['remote_work'][df['skills_count']==19])
+Out[158]:
+(array([4418.,    0.,    0.,    0.,    0., 4389.,    0.,    0.,    0.,
+        4329.]),
+ array([0. , 0.2, 0.4, 0.6, 0.8, 1. , 1.2, 1.4, 1.6, 1.8, 2. ]),
+ <BarContainer object of 10 artists>)
+
+In [159]: m.show()
+
+In [160]: m.hist(df['certifications'][df['skills_count']==19])
+Out[160]:
+(array([2215.,    0., 2249.,    0., 2203.,    0., 2252.,    0., 2171.,
+        2046.]),
+ array([0. , 0.5, 1. , 1.5, 2. , 2.5, 3. , 3.5, 4. , 4.5, 5. ]),
+ <BarContainer object of 10 artists>)
+
+In [161]: m.show()
+
+In [162]: m.hist(df['salary'][df['skills_count']==19])
+Out[162]:
+(array([ 157., 1117., 2585., 3635., 3063., 1620.,  679.,  210.,   58.,
+          12.]),
+ array([ 52590. ,  78923.8, 105257.6, 131591.4, 157925.2, 184259. ,
+        210592.8, 236926.6, 263260.4, 289594.2, 315928. ]),
+ <BarContainer object of 10 artists>)
+
+In [163]: m.show()
+
+In [164]: m.boxplot(df['experience_years'][df['skills_count']==19])
+Out[164]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x292733e7bb0>,
+  <matplotlib.lines.Line2D at 0x29273411240>],
+ 'caps': [<matplotlib.lines.Line2D at 0x292734114e0>,
+  <matplotlib.lines.Line2D at 0x29273411780>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x29273410e20>],
+ 'medians': [<matplotlib.lines.Line2D at 0x29273411a20>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x29273411cc0>],
+ 'means': []}
+
+In [165]: m.show()
+
+In [166]: m.boxplot(df['certifications'][df['skills_count']==19])
+Out[166]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x29274a58910>,
+  <matplotlib.lines.Line2D at 0x29274a58bb0>],
+ 'caps': [<matplotlib.lines.Line2D at 0x29274a58e50>,
+  <matplotlib.lines.Line2D at 0x29274a590f0>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x29274a58670>],
+ 'medians': [<matplotlib.lines.Line2D at 0x29274a59390>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x29274a59630>],
+ 'means': []}
+
+In [167]: m.show()
+
+In [168]: m.boxplot(df['salary'][df['skills_count']==19])
+Out[168]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x29274acc280>,
+  <matplotlib.lines.Line2D at 0x29274acc400>],
+ 'caps': [<matplotlib.lines.Line2D at 0x29274acc6a0>,
+  <matplotlib.lines.Line2D at 0x29274acc940>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x29274a97fa0>],
+ 'medians': [<matplotlib.lines.Line2D at 0x29274accbe0>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x29274acce80>],
+ 'means': []}
+
+In [169]: m.show()
+
+In [170]: n.quantile(df['experience_years'],0.2)
+Out[170]: 4.0
+
+In [171]: n.quantile(df['experience_years'],0.25)
+Out[171]: 5.0
+
+In [172]: n.quantile(df['experience_years'],0.3)
+Out[172]: 6.0
+
+In [173]: n.quantile(df['experience_years'],0.4)
+Out[173]: 8.0
+
+In [174]: n.quantile(df['experience_years'],0.5)
+Out[174]: 10.0
+
+In [175]: n.quantile(df['experience_years'],0.7)
+Out[175]: 14.0
+
+In [176]: n.quantile(df['experience_years'],0.75)
+Out[176]: 15.0
+
+In [177]: n.quantile(df['experience_years'],0.85)
+Out[177]: 17.0
+
+In [178]: n.quantile(df['certifications'],0.2)
+Out[178]: 1.0
+
+In [179]: n.quantile(df['certifications'],0.25)
+Out[179]: 1.0
+
+In [180]: n.quantile(df['certifications'],0.3)
+Out[180]: 1.0
+
+In [181]: n.quantile(df['certifications'],0.4)
+Out[181]: 2.0
+
+In [182]: n.quantile(df['certifications'],0.5)
+Out[182]: 2.0
+
+In [183]: n.quantile(df['certifications'],0.7)
+Out[183]: 4.0
+
+In [184]: n.quantile(df['certifications'],0.75)
+Out[184]: 4.0
+
+In [185]: n.quantile(df['certifications'],0.85)
+Out[185]: 5.0
+
+In [186]: n.quantile(df['salary'],0.2)
+Out[186]: 113636.0
+
+In [187]: n.quantile(df['salary'],0.25)
+Out[187]: 119358.0
+
+In [188]: n.quantile(df['salary'],0.3)
+Out[188]: 124520.7
+
+In [189]: n.quantile(df['salary'],0.4)
+Out[189]: 134232.0
+
+In [190]: n.quantile(df['salary'],0.5)
+Out[190]: 143453.0
+
+In [191]: n.quantile(df['salary'],0.7)
+Out[191]: 163469.0
+
+In [192]: n.quantile(df['salary'],0.75)
+Out[192]: 169492.0
+
+In [193]: n.quantile(df['salary'],0.85)
+Out[193]: 184486.3
+
+In [194]: from sklearn.model_selection import train_test_split
+
+In [195]: from sklearn.linear_model import LinearRegression
+
+In [196]: x1=df.drop('job_title',axis=1)
+
+In [197]: x2=x1.drop('education_level',axis=1)
+
+In [198]: x3=x2.drop('industry',axis=1)
+
+In [199]: x4=x3.drop('company_size',axis=1)
+
+In [200]: x5=x4.drop('location',axis=1)
+
+In [201]: x6=x5.drop('remote_work',axis=1)
+
+In [202]: x7=x6.drop('salary',axis=1)
+
+In [203]: x7
+Out[203]:
+        experience_years  skills_count  certifications
+0                     10             2               2
+1                      5            17               0
+2                     18             4               1
+3                     19            13               0
+4                     15             7               0
+...                  ...           ...             ...
+249995                17             2               1
+249996                20             7               2
+249997                 1            12               0
+249998                 0             2               5
+249999                16             2               5
+
+[250000 rows x 3 columns]
+
+In [204]: x_train,x_test,y_train,y_test=train_test_split(x7,df[['salary']],test_size=0.2)
+
+In [205]: model=LinearRegression()
+
+In [206]: model.fit(x_train,y_train)
+Out[206]: LinearRegression()
+
+In [207]: model.predict(x_test)
+Out[207]:
+array([[158295.16888033],
+       [161954.6209458 ],
+       [170201.92352368],
+       ...,
+       [118205.19121483],
+       [166808.80211833],
+       [141414.60316495]])
+
+In [209]: a1=model.predict(x_test)
+
+In [210]: n.quantile(a1,0.2)
+Out[210]: 128710.70104074871
+
+In [211]: n.quantile(a1,0.25)
+Out[211]: 131470.71659624012
+
+In [212]: n.quantile(a1,0.3)
+Out[212]: 134288.65602566066
+
+In [213]: n.quantile(a1,0.4)
+Out[213]: 139851.20779233798
+
+In [214]: n.quantile(a1,0.5)
+Out[214]: 145487.08665117912
+
+In [215]: n.quantile(a1,0.7)
+Out[215]: 156922.88599985145
+
+In [216]: n.quantile(a1,0.75)
+Out[216]: 159740.82542927202
+
+In [217]: n.quantile(a1,0.85)
+Out[217]: 165614.07301126703
+
+In [218]: model.intercept_
+Out[218]: array([105958.73224289])
+
+In [219]: model.coef_
+Out[219]: array([[2700.20060575,  870.47457301, 1623.21032236]])
+
+In [220]: max(a1)
+Out[220]: array([184617.81285695])
+
+In [221]: min(a1)
+Out[221]: array([106829.2068159])
+
+In [222]: m.boxplot(a1)
+Out[222]:
+{'whiskers': [<matplotlib.lines.Line2D at 0x29202309510>,
+  <matplotlib.lines.Line2D at 0x29202309690>],
+ 'caps': [<matplotlib.lines.Line2D at 0x29202309930>,
+  <matplotlib.lines.Line2D at 0x29202309bd0>],
+ 'boxes': [<matplotlib.lines.Line2D at 0x29202309270>],
+ 'medians': [<matplotlib.lines.Line2D at 0x29202309e70>],
+ 'fliers': [<matplotlib.lines.Line2D at 0x2920230a110>],
+ 'means': []}
+
+In [223]: m.show()
+
+In [224]: x_test.to_csv("G:\\ex_e1.csv",index=False)
+
+In [225]: df1=z.read_csv("G:\\ex_e1.csv")
+
+In [226]: model.predict(df1)
+Out[226]:
+array([[158295.16888033],
+       [161954.6209458 ],
+       [170201.92352368],
+       ...,
+       [118205.19121483],
+       [166808.80211833],
+       [141414.60316495]])
+
+In [227]: a11=model.predict(df1)
+
+In [228]: df1['pred_salary']=a11
+
+In [229]: df1
+Out[229]:
+       experience_years  skills_count  certifications    pred_salary
+0                    15             8               3  158295.168880
+1                    17             6               3  161954.620946
+2                    19            13               1  170201.923524
+3                    16             5               5  161630.366412
+4                    19             5               2  164861.337262
+...                 ...           ...             ...            ...
+49995                 2            15               3  129285.883017
+49996                18            18               2  173477.306105
+49997                 2             6               1  118205.191215
+49998                20             6               1  166808.802118
+49999                 4            19               5  141414.603165
+
+[50000 rows x 4 columns]
+
+In [230]: df1.to_csv("G:\\ex_e1##.csv",index=False)
